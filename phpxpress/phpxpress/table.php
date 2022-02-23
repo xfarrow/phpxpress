@@ -5,10 +5,10 @@
       private $dataSource;
       private $columnCaptions;
 
-      private $darkTheme = false; // boolean
-      private $stripedRows = false; // boolean
-      private $bordered = false; //boolean
-      private $hoverAnimation = false; //boolean
+      private $darkTheme = false;
+      private $stripedRows = false;
+      private $bordered = false;
+      private $hoverAnimation = false;
       private $small = false;
       
       function draw(){
@@ -47,56 +47,57 @@
 
       }
 
-      function setDataSource($dataSource){
-        if(!is_array($dataSource)){
-          throw new BadFunctionCallException('DataSource must be an array.');
-        }
-
+      function setDataSource(Array $dataSource){
+        if(empty($dataSource))
+          throw new InvalidArgumentException('Parameter cannot be empty.');
+        
         $this->dataSource = $dataSource;
         $this->columnCaptions = array_keys(get_object_vars($this->dataSource[0]));
       }
 
-      function setCustomCaptions($captions){
-        if(!is_array($captions)){
-          throw new BadFunctionCallException('Captions must be an array.');
-        }
-        $this->columnCaptions = $captions;
+      function setCustomCaptions(Array $captions){
+        if(empty($this->dataSource))
+          throw new BadFunctionCallException('Before setting Custom captions, a datasource must be provided first.');
+        
+        if(count($this->columnCaptions) == count($captions))
+          $this->columnCaptions = $captions;
+        else
+        throw new LengthException('Number of provided captions not matching the datasource ones.');
       }
 
       function setDarkTheme($bool){
         if(!is_bool($bool)){
-          throw new BadFunctionCallException('Parameter must be a boolean.');
+          throw new InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->darkTheme = $bool;
       }
 
       function setStripedRows($bool){
         if(!is_bool($bool)){
-          throw new BadFunctionCallException('Parameter must be a boolean.');
+          throw new InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->stripedRows = $bool;
       }
 
       function setBordered($bool){
         if(!is_bool($bool)){
-          throw new BadFunctionCallException('Parameter must be a boolean.');
+          throw new InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->bordered = $bool;
       }
 
       function setHoverAnimation($bool){
         if(!is_bool($bool)){
-          throw new BadFunctionCallException('Parameter must be a boolean.');
+          throw new InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->hoverAnimation = $bool;
       }
 
       function setSmall($bool){
         if(!is_bool($bool)){
-          throw new BadFunctionCallException('Parameter must be a boolean.');
+          throw new InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->small = $bool;
       }
-
     }
 ?>
