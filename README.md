@@ -47,7 +47,7 @@ $card1->setButton("More info", "https://en.wikipedia.org/wiki/Rome");
 $card1->draw();
 
 class City{
-	public $Mayor;
+    public $Mayor;
     public $Inhabitants;
     public  $Zip;
 }
