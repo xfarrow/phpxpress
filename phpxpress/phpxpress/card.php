@@ -9,7 +9,24 @@
         private $width = 18;
         private $footerText;
         private $fieldsArray;
+        private $list;
+        private $linksArray;
         private $button;
+        private $borderColor;
+        private $cardColor;
+        private $textColor;
+
+        function setBorderColor($color){
+            $this->borderColor = Code::bootstrapColors($color);
+        }
+
+        function setCardColor($color){
+            $this->cardColor = Code::bootstrapColors($color);
+        }
+
+        function setTextColor($color){
+            $this->textColor = $color;
+        }
 
         function setImageSource($imageSource){
             if(!is_string($imageSource))
@@ -56,8 +73,41 @@
             }
         }
 
+        function addLink($caption, $link){
+            $this->linksArray[$caption] =  $link;
+        }
+
+        function addArrayList(Array $list){
+            if(isset($this->list)){
+                $this->list = array_merge($this->list, $list);
+            }else{
+                $this->list = $list;
+            }
+        }
+
+        function addElementList($element){
+            if(isset($this->list)){
+                array_push($this->list, $element);
+            }else{
+                $list = array($element);
+            }
+        }
+
         function draw(){
-            echo '<div class="card" style="width: ' . $this->width . 'rem;">';
+
+            $class = "card";
+
+            if(isset($this->borderColor)){
+                $class.= ' border-' . $this->borderColor;
+            }
+            if(isset($this->cardColor)){
+                $class.= ' bg-' . $this->cardColor;
+            }
+            if(isset($this->textColor)){
+                $class.= ' text-' . $this->borderColor;
+            }
+
+            echo '<div class="' . $class . '" style="width: ' . $this->width . 'rem;">';
 
             // Image
             if(isset($this->imageSource)){
@@ -74,6 +124,23 @@
                     echo '<p class="card-text"><b>' . $field . ': </b>' . $value . '</p>';
                 }
             }
+
+            if(isset($this->list)){
+                echo '</div>'; // close card-body div
+                echo '<ul class="list-group list-group-flush">';
+                foreach($this->list as $string){
+                    echo '<li class="list-group-item">' . $string . '</li>';
+                }
+                echo '</ul>';
+                echo '<div class="card-body">';
+            }
+
+            if(isset($this->linksArray)){ // links
+               foreach($this->linksArray as $caption => $link){
+                   echo '<a href="' . $link . '" class="card-link">'. $caption .'</a>';  
+            }
+            echo '<br/><br/>';
+        }
 
             if(isset($this->button))
                 echo '<a href="' . $this->button["link"] . '" class="btn btn-primary">' . $this->button["text"] . '</a>';

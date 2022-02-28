@@ -1,12 +1,14 @@
 <html>
     <head>
-        <title>Table example</title>
+        <title>Card example</title>
     </head>
     <body>
         <?php
             include "../phpxpress/card.php";
 
             Card::beginCardGroupLayout(36);
+
+            // Rome
 
             $card1 = new Card;
             $card1->setImageSource("colosseum.jpg");
@@ -18,7 +20,12 @@
             $card1->addField("Inhabitants", "2.763.804");
             $card1->AddField("Zip", "001XX");
             $card1->setButton("More info", "https://en.wikipedia.org/wiki/Rome");
+            $card1->addLink("Town", "https://www.comune.roma.it/web/it/welcome.page");
+            $card1->addLink("ATAC", "https://www.atac.roma.it/");
             $card1->draw();
+
+
+            // Paris
 
             class City{
                 public $Mayor;
@@ -38,6 +45,10 @@
             $card2->setInnerText("The following fields' name & data will be acquired by the datasource.");
             $card2->setDataSource($paris);
             $card2->setButton("More info", "https://en.wikipedia.org/wiki/Paris");
+            $card2->addArrayList(array("this is", "just a list"));
+            $card2->addElementList("of various sentences");
+            $card2->addLink("Link1", "#");
+            $card2->addLink("Link2", "#");
             $card2->draw();
 
             Card::endCardGroupLayout();
