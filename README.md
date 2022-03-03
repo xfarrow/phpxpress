@@ -17,10 +17,13 @@ $employees = array($employee1, $employee2, $employee3);
 
 $table = new Table;
 $table->setDataSource($employees);
+
 $table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number")); //not required. If not specified it'll use objects' property names
+
 $table->setStripedRows(true);
 $table->setBordered(true);
 $table->setHoverAnimation(true);
+
 $table->draw();
 ```
 
@@ -35,15 +38,22 @@ The follwing code
 Card::beginCardGroupLayout(36);
 
 $card1 = new Card;
+
 $card1->setImageSource("colosseum.jpg");
+
 $card1->setTitle("Rome");
 $card1->setSubTitle("Capital of Italy");
+
 $card1->setInnerText("After the foundation by Romulus according to a legend, Rome was ruled for a period of 244 years by a monarchical system, initially with sovereigns of Latin and Sabine origin, later by Etruscan kings.");
+
 $card1->setFooterText("Image By John");
+
 $card1->addField("Mayor", "Roberto Gualtieri");
 $card1->addField("Inhabitants", "2.763.804");
 $card1->AddField("Zip", "001XX");
+
 $card1->setButton("More info", "https://en.wikipedia.org/wiki/Rome");
+
 $card1->draw();
 
 class City{
