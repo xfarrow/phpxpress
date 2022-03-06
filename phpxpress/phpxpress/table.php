@@ -52,7 +52,14 @@
           throw new InvalidArgumentException('Parameter cannot be empty.');
         
         $this->dataSource = $dataSource;
-        $this->columnCaptions = array_keys(get_object_vars($this->dataSource[0]));
+
+        // if array of objects provided
+        if(is_object($this->dataSource[0]))
+          $this->columnCaptions = array_keys(get_object_vars($this->dataSource[0]));
+
+        // if array of arrays provided
+        else 
+          $this->columnCaptions = array_keys($this->dataSource[0]);
       }
 
       function setCustomCaptions(Array $captions){
