@@ -16,10 +16,16 @@
         private $cardColor;
         private $textColor;
 
+        /*
+        ** https://getbootstrap.com/docs/5.1/components/card/#border
+        */
         function setBorderColor($color){
             $this->borderColor = Code::bootstrapColors($color);
         }
 
+        /*
+        ** https://getbootstrap.com/docs/5.1/components/card/#background-and-color
+        */
         function setCardColor($color){
             $this->cardColor = Code::bootstrapColors($color);
         }
@@ -67,17 +73,31 @@
                 $this->fieldsArray = array($caption => $value);
         }
 
+        /*
+        ** Setting a datasource will produce a list of fields (bold caption with light value).
+        ** E.G. array("Color" => "Red" , "Brand" => "Ferrari" , "Horsepower" => "700HP")
+        ** will produce:
+        **              Color: Red
+        **              Brand: Ferrari
+        **              Horsepower: 700HP
+        */
         function setDataSource($datasource){
             foreach($datasource as $caption => $value){
                 $this->addField($caption,$value);
             }
         }
 
+        /*
+        ** https://getbootstrap.com/docs/5.1/components/card/#titles-text-and-links
+        */
         function addLink($caption, $link){
             $this->linksArray[$caption] =  $link;
         }
 
-        function addArrayList(Array $list){
+        /*
+        ** https://getbootstrap.com/docs/5.1/components/card/#list-groups
+        */
+        function addArrayToList(Array $list){
             if(isset($this->list)){
                 $this->list = array_merge($this->list, $list);
             }else{
@@ -85,7 +105,10 @@
             }
         }
 
-        function addElementList($element){
+        /*
+        ** https://getbootstrap.com/docs/5.1/components/card/#list-groups
+        */
+        function addElementToList($element){
             if(isset($this->list)){
                 array_push($this->list, $element);
             }else{
@@ -138,9 +161,9 @@
             if(isset($this->linksArray)){ // links
                foreach($this->linksArray as $caption => $link){
                    echo '<a href="' . $link . '" class="card-link">'. $caption .'</a>';  
-            }
+                }
             echo '<br/><br/>';
-        }
+            }   
 
             if(isset($this->button))
                 echo '<a href="' . $this->button["link"] . '" class="btn btn-primary">' . $this->button["text"] . '</a>';
@@ -151,10 +174,12 @@
             echo '</div></div>';
         }
 
+        /*
+        ** Using this overrides the card's width (known error from Bootstrap), so you should specify a width.
+        ** It always has to be closed with endCardGroupLayout()
+        ** https://getbootstrap.com/docs/5.1/components/card/#card-groups
+        */
         static function beginCardGroupLayout($width=36){
-            /*
-            ** Using this overrides the card's width (known error from Bootstrap), so you should specify a width.
-            */
             echo '<div class="card-group" style="width:' . $width. 'rem;">';
         } 
 
