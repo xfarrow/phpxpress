@@ -6,12 +6,14 @@ It's similar to Microsoft's WebForms with a great layout by default (like DevExp
 ## Available components
 * Table
 * Card
+* Breadcumb
 
-## Example
+## Examples
 
 ### Table
 
 The following code
+
 ```
 $employees = array($employee1, $employee2, $employee3);
 
@@ -28,12 +30,14 @@ $table->draw();
 ```
 
 produces the following output
+
 <img src="/phpxpress/examples/demoTable.jpg" alt="Demo">
 
 
 ### Card
 
 The follwing code
+
 ```
 Card::beginCardGroupLayout(36);
 
@@ -80,6 +84,29 @@ Card::endCardGroupLayout();
 ```
 
 produces the following output
+
 <img src="/phpxpress/examples/card.jpg" alt="Demo">
 
 $card2 receives a DataSource whereas $card1 does not.
+
+### Breadcrumb
+
+The follwing code
+
+```
+            $links["Github"] = "https://www.github.com";
+            $links["xfarrow"] = "https://www.github.com/xfarrow";
+            $links["PhpXpress"] = "https://www.github.com/xfarrow/phoxpress";
+
+            $breadcrumb = new BreadCrumb;
+
+            $breadcrumb->setDataSource($links);
+            $breadcrumb->draw();
+```
+
+Produces the following output:
+<img src="/phpxpress/examples/breadcrumb.jpg" alt="Demo">
+
+
+
+
