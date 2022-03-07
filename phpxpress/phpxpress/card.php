@@ -68,7 +68,7 @@
         }
 
         function setDataSource($datasource){
-            foreach($datasource as $caption=>$value){
+            foreach($datasource as $caption => $value){
                 $this->addField($caption,$value);
             }
         }

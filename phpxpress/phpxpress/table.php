@@ -54,11 +54,11 @@
         $this->dataSource = $dataSource;
 
         // if array of objects provided
-        if(is_object($this->dataSource[0]))
+        if(is_object($dataSource[0]))
           $this->columnCaptions = array_keys(get_object_vars($this->dataSource[0]));
 
         // if array of arrays provided
-        else 
+        else if(is_array($dataSource[0]))
           $this->columnCaptions = array_keys($this->dataSource[0]);
       }
 
