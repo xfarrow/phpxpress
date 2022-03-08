@@ -46,7 +46,7 @@
           foreach ($obj as $name => $value) {
 
             if(isset( $this -> onValueDisplayingFunctionName)){
-              call_user_func_array($this -> onValueDisplayingFunctionName , array($name, &$value));
+              call_user_func_array($this -> onValueDisplayingFunctionName , array($name, &$value, (array)$obj));
             }
             echo '<td>' . $value . '</td>';
 
@@ -83,16 +83,40 @@
       }
 
       /*
+      ** if you use addColumn() either
+      ** 1) you do not use any dataSource
+      ** 2) you set the dataSource prior to call this method (otherwise it won't be correctly shown)
+      */
+      function addColumn($captionName){
+
+        if(isset($this->columnCaptions)){
+          array_push($this->columnCaptions , $captionName);
+        }
+        else{
+          $this->columnCaptions = array($captionName);
+        }
+
+        // Add this property to every object/array of the dataSource
+        if(isset($this->dataSource)){
+          foreach($this->dataSource as $obj){
+            $obj->{$captionName} = null;
+          }
+        }
+
+      }
+
+      /*
       ** The Event "onValueDisplaying" gets fired just before the displaying of a value within
       ** a table body, so you can display your own value if you want to.
       ** The function you have to provide must have this signature:
       **
-      **                        function myFunction($caption, &$value){...}
+      **                        function myFunction($caption, &$value, $row){...}
       **
       ** You can change "caption" and "value" to whichever name you want.
       **
-      ** caption: the ACTUAL fieldname of the dataSource whose value belong
+      ** caption: the ACTUAL fieldname of the dataSource whose value belongs to
       ** value:   the value you want to display.
+      ** row:     an associative array representing the row being processed
       */
       function onValueDisplaying($functionName){
         if(!is_callable($functionName))

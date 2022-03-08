@@ -6,7 +6,7 @@ It's similar to Microsoft's WebForms with a great layout by default (like DevExp
 ## Available components
 * Table
 * Card
-* Breadcumb
+* Breadcrumb
 
 ## Examples
 
@@ -22,11 +22,29 @@ $table->setDataSource($employees);
 
 $table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number")); //not required. If not specified it'll use objects' property names
 
+$table->addColumn("Extra");
+
+$table->onValueDisplaying("onValueDisplaying");
+
 $table->setStripedRows(true);
 $table->setBordered(true);
 $table->setHoverAnimation(true);
 
 $table->draw();
+
+function onValueDisplaying($caption, &$value, $row){
+	if($caption == "ssn"){
+		if($row["ssn"] != "12345"){
+			$value = "SSN not shown for privacy reasons";
+        }
+        else{
+			$value = $row["name"] . " " . $row["surname"] . " agreed to share their ssn (12345)" ;
+        }
+    }
+    else if($caption == "Extra"){
+		$value = "This column did not exist in the datasource";
+    }
+}
 ```
 
 produces the following output

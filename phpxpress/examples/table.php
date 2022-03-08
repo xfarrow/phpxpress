@@ -37,17 +37,28 @@
             $table = new Table;
             $table->setDataSource($employees);
             $table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number"));
+
+            $table->addColumn("Extra");
+
+            $table->onValueDisplaying("onValueDisplaying");
+
             $table->setStripedRows(true);
             $table->setBordered(true);
             $table->setHoverAnimation(true);
 
-            $table->onValueDisplaying("onValueDisplaying"); // event
-
             $table->draw();
 
-            function onValueDisplaying($caption, &$value){
+            function onValueDisplaying($caption, &$value, $row){
                 if($caption == "ssn"){
-                    $value = "SSN not shown for privacy reasons";
+                    if($row["ssn"] != "12345"){
+                        $value = "SSN not shown for privacy reasons";
+                    }
+                    else{
+                        $value = $row["name"] . " " . $row["surname"] . " agreed to share their ssn (12345)" ;
+                    }
+                }
+                else if($caption == "Extra"){
+                    $value = "This column did not exist in the datasource";
                 }
             }
 
