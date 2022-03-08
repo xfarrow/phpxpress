@@ -2,9 +2,14 @@
     include "include.php";
 
     class Table{
+      // Structure
       private $dataSource;
       private $columnCaptions;
 
+      // Events
+      private $onValueDisplayingFunctionName;
+
+      // Layout
       private $darkTheme = false;
       private $stripedRows = false;
       private $bordered = false;
@@ -39,7 +44,12 @@
         foreach($this->dataSource as $obj){
           echo '<tr>';
           foreach ($obj as $name => $value) {
+
+            if(isset( $this -> onValueDisplayingFunctionName)){
+              call_user_func_array($this -> onValueDisplayingFunctionName , array($name, &$value));
+            }
             echo '<td>' . $value . '</td>';
+
           }
           echo '</tr>';
         }
@@ -70,6 +80,25 @@
           $this->columnCaptions = $captions;
         else
         throw new LengthException('Number of provided captions not matching the datasource ones.');
+      }
+
+      /*
+      ** The Event "onValueDisplaying" gets fired just before the displaying of a value within
+      ** a table body, so you can display your own value if you want to.
+      ** The function you have to provide must have this signature:
+      **
+      **                        function myFunction($caption, &$value){...}
+      **
+      ** You can change "caption" and "value" to whichever name you want.
+      **
+      ** caption: the ACTUAL fieldname of the dataSource whose value belong
+      ** value:   the value you want to display.
+      */
+      function onValueDisplaying($functionName){
+        if(!is_callable($functionName))
+          throw new InvalidArgumentException("Couldn't call $functionName. You must provide the name of a function.");
+
+        $this -> onValueDisplayingFunctionName = $functionName;
       }
 
       function setDarkTheme($bool){

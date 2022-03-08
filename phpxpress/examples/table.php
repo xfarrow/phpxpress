@@ -40,7 +40,16 @@
             $table->setStripedRows(true);
             $table->setBordered(true);
             $table->setHoverAnimation(true);
+
+            $table->onValueDisplaying("onValueDisplaying"); // event
+
             $table->draw();
+
+            function onValueDisplaying($caption, &$value){
+                if($caption == "ssn"){
+                    $value = "SSN not shown for privacy reasons";
+                }
+            }
 
         ?>
     </body>
