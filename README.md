@@ -124,7 +124,7 @@ The follwing code
 
 Produces the following output:
 
-<img src="/phpxpress/examples/images/imagesbreadcrumb.jpg" alt="Demo">
+<img src="/phpxpress/examples/images/breadcrumb.jpg" alt="Demo">
 
 
 
