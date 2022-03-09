@@ -49,9 +49,18 @@
             $card2->addElementToList("of various sentences");
             $card2->addLink("Link1", "#");
             $card2->addLink("Link2", "#");
+
+            $card2->onFieldDisplaying("onFieldDisplaying");
+
             $card2->draw();
 
             Card::endCardGroupLayout();
+
+            function onFieldDisplaying(&$field , &$value){
+                if($field == "Inhabitants"){
+                    $value .= " (census 2019)";
+                }
+            }
         ?>
     </body>
 </html>

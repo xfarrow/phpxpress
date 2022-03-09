@@ -2,6 +2,8 @@
     include "include.php";
 
     class Card{
+        
+        // Structure
         private $imageSource;
         private $title;
         private $subtitle;
@@ -12,6 +14,11 @@
         private $list;
         private $linksArray;
         private $button;
+
+        // Events
+        private $onFieldDisplayingFunctionName;
+
+        // Layout
         private $borderColor;
         private $cardColor;
         private $textColor;
@@ -140,10 +147,14 @@
             echo '<div class="card-body">';
             echo '<h5 class="card-title">'. $this->title .'</h5>'; // title
             echo '<h6 class="card-subtitle mb-2 text-muted">'. $this->subtitle .'</h6>'; // subtitle
-            echo '<p class="card-text">'. $this->innerText . '</p>'; // text
+            echo '<p class="card-text">'. $this->innerText . '</p>'; // innertext
 
-            if(isset($this->fieldsArray)){ // fields
+            // fields
+            if(isset($this->fieldsArray)){
                 foreach($this->fieldsArray as $field => $value){
+                    if(isset($this->onFieldDisplayingFunctionName)){
+                        call_user_func_array($this -> onFieldDisplayingFunctionName , array(&$field, &$value));
+                    }
                     echo '<p class="card-text"><b>' . $field . ': </b>' . $value . '</p>';
                 }
             }
@@ -172,6 +183,23 @@
                 echo '<br/><br/><p class="card-text"><small class="text-muted">' . $this->footerText . '</small></p>'; // footer
 
             echo '</div></div>';
+        }
+
+        /*
+        ** The Event "onFieldDisplaying" gets fired just before the displaying of a field within
+        ** a card, so you can display your own value.
+        ** The function you have to provide must have this signature:
+        **
+        **                        function myFunction(&$field , &$value){...}
+        **
+        ** You can change "field" snd "value" to whichever name you want.
+        **
+        */
+        function onFieldDisplaying($functionName){
+            if(!is_callable($functionName))
+                throw new InvalidArgumentException("Couldn't call $functionName. You must provide the name of a function.");
+
+            $this -> onFieldDisplayingFunctionName = $functionName;
         }
 
         /*

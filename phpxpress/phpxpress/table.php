@@ -2,6 +2,7 @@
     include "include.php";
 
     class Table{
+      
       // Structure
       private $dataSource;
       private $columnCaptions;
@@ -57,17 +58,21 @@
 
       }
 
+      /*
+      ** Datasource can be either an array of object(s) or
+      ** an array of array(s).
+      */
       function setDataSource(Array $dataSource){
         if(empty($dataSource))
           throw new InvalidArgumentException('Parameter cannot be empty.');
         
         $this->dataSource = $dataSource;
 
-        // if array of objects provided
+        // Set captions when array of objects provided
         if(is_object($dataSource[0]))
           $this->columnCaptions = array_keys(get_object_vars($this->dataSource[0]));
 
-        // if array of arrays provided
+        // Set captione when array of arrays provided
         else if(is_array($dataSource[0]))
           $this->columnCaptions = array_keys($this->dataSource[0]);
       }
@@ -107,12 +112,12 @@
 
       /*
       ** The Event "onValueDisplaying" gets fired just before the displaying of a value within
-      ** a table body, so you can display your own value if you want to.
+      ** a table body, so you can display your own value.
       ** The function you have to provide must have this signature:
       **
       **                        function myFunction($caption, &$value, $row){...}
       **
-      ** You can change "caption" and "value" to whichever name you want.
+      ** You can change "caption", "value" and "row" to whichever name you want.
       **
       ** caption: the ACTUAL fieldname of the dataSource whose value belongs to
       ** value:   the value you want to display.
