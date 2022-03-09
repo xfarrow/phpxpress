@@ -49,7 +49,7 @@ function onValueDisplaying($caption, &$value, $row){
 
 produces the following output
 
-<img src="/phpxpress/examples/demoTable.jpg" alt="Demo">
+<img src="/phpxpress/examples/images/demoTable.jpg" alt="Demo">
 
 
 ### Card
@@ -103,7 +103,7 @@ Card::endCardGroupLayout();
 
 produces the following output
 
-<img src="/phpxpress/examples/card.jpg" alt="Demo">
+<img src="/phpxpress/examples/images/card.jpg" alt="Demo">
 
 $card2 receives a DataSource whereas $card1 does not.
 
@@ -123,7 +123,8 @@ The follwing code
 ```
 
 Produces the following output:
-<img src="/phpxpress/examples/breadcrumb.jpg" alt="Demo">
+
+<img src="/phpxpress/examples/images/imagesbreadcrumb.jpg" alt="Demo">
 
 
 

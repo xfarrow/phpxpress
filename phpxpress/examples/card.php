@@ -11,7 +11,7 @@
             // Rome
 
             $card1 = new Card;
-            $card1->setImageSource("colosseum.jpg");
+            $card1->setImageSource("./images/colosseum.jpg");
             $card1->setTitle("Rome");
             $card1->setSubTitle("Capital of Italy");
             $card1->setInnerText("After the foundation by Romulus according to a legend, Rome was ruled for a period of 244 years by a monarchical system, initially with sovereigns of Latin and Sabine origin, later by Etruscan kings.");
@@ -39,14 +39,14 @@
             $paris->Zip = "750XX";
 
             $card2 = new Card;
-            $card2->setImageSource("paris.jpg");
+            $card2->setImageSource("./images/paris.jpg");
             $card2->setTitle("Paris");
             $card2->setSubTitle("Capital of France");
             $card2->setInnerText("The following fields' name & data will be acquired by the datasource.");
             $card2->setDataSource($paris);
             $card2->setButton("More info", "https://en.wikipedia.org/wiki/Paris");
-            $card2->addArrayList(array("this is", "just a list"));
-            $card2->addElementList("of various sentences");
+            $card2->addArrayToList(array("this is", "just a list"));
+            $card2->addElementToList("of various sentences");
             $card2->addLink("Link1", "#");
             $card2->addLink("Link2", "#");
             $card2->draw();
