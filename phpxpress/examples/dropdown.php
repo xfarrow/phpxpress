@@ -9,9 +9,8 @@
 
             $dropdown = new Dropdown;
 
-            $dropdown->setTitle("Title");
-            $dropdown->setDataSource(array("AA" => "#" , "BB" => "#"));
-            $dropdown->setSize("large");
+            $dropdown->setTitle("Bank Account");
+            $dropdown->setDataSource(array("Unicredit" => "#" , "United Bank" => "#" , "National Bank" => "#"));
             $dropdown->draw();
         ?>
     </body>

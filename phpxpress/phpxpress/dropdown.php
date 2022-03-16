@@ -8,6 +8,7 @@
         private $datasource;
         private $color = 'secondary';
         private $size;
+        private $darkTheme = false;
 
         // Associative array name => link
         public function setDataSource(Array $datasource){
@@ -34,7 +35,13 @@
 
             else
                 throw new InvalidArgumentException('Parameter size must be either default, large or small.');
+        }
 
+        public function setDarkTheme($bool){
+            if(!is_bool($bool))
+                throw new InvalidArgumentException('Parameter must be a bool.');
+
+            $this->darkTheme = $bool;
 
         }
 
@@ -52,7 +59,12 @@
             echo $this->title;
             echo '</button>';
 
-            echo '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">';
+            $ulClass = "dropdown-menu";
+            if($this->darkTheme){
+                $ulClass .= " dropdown-menu-dark";
+            }
+
+            echo '<ul class="' . $ulClass . '" aria-labelledby="dropdownMenuButton1">';
               
             foreach($this->datasource as $name => $link){
                 echo '<li><a class="dropdown-item" href="' . $link . '">' . $name . '</a></li>';

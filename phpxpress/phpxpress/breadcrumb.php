@@ -6,7 +6,7 @@
 
         private $locations;
 
-        // unless otherwise specified via stating 'setActiveLocation(-1)'
+        // unless otherwise specified via stating 'setActiveLocation()'
         // the active location will be the last element
         private $activeLocation;
 
