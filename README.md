@@ -7,6 +7,7 @@ It's similar to Microsoft's WebForms with a great layout by default (like DevExp
 * Table
 * Card
 * Breadcrumb
+* Dropdown
 
 ## Examples
 
