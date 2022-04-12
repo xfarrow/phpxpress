@@ -31,7 +31,7 @@
         if($this->hoverAnimation) $tableClass.= " table-hover";
         if($this->small) $tableClass.= " table-sm";
 
-        echo '<table class="' . $tableClass .'">';
+        echo "<table class = '$tableClass'>";
         
         // Print head
         echo '<thead><tr>';
@@ -66,32 +66,46 @@
         if(empty($dataSource))
           throw new InvalidArgumentException('Parameter cannot be empty.');
         
-        $this->dataSource = $dataSource;
+        /*
+        ** If one or more addColumn() were called before setting the datasource,
+        ** we should add those columns in the source.
+        */
+        if(isset($this -> columnCaptions)){
+          foreach($dataSource as &$element){
+            foreach($this -> columnCaptions as $captionName){
+              $element = (object)(array($captionName => null) + (array)$element); // append the already inserted captions at the beginning
+              //$element->{$captionName} = null; // append the already inserted captions at the end
+            }
+          }
+        }
+
+        $this -> dataSource = $dataSource;
 
         // Set captions when array of objects provided
-        if(is_object($dataSource[0]))
-          $this->columnCaptions = array_keys(get_object_vars($this->dataSource[0]));
+        if(is_object($dataSource[0])){
+            $this->columnCaptions = array_keys(get_object_vars($this -> dataSource[0]));
+        }
 
-        // Set captione when array of arrays provided
-        else if(is_array($dataSource[0]))
-          $this->columnCaptions = array_keys($this->dataSource[0]);
+        // Set caption when array of arrays provided
+        else if(is_array($dataSource[0])){
+            $this->columnCaptions = array_keys($this -> dataSource[0]);
+        }
       }
 
       function setCustomCaptions(Array $captions){
         if(empty($this->dataSource))
           throw new BadFunctionCallException('Before setting Custom captions, a datasource must be provided first.');
         
-        if(count($this->columnCaptions) == count($captions))
-          $this->columnCaptions = $captions;
+        $provided = count($captions);
+        $expected = count($this->columnCaptions);
+
+        if($provided == $expected)
+          $this -> columnCaptions = $captions;
         else
-        throw new LengthException('Number of provided captions not matching the datasource ones.');
+        throw new LengthException('Number of provided captions not matching the datasource ones. 
+                                  Provided: ' . $provided . "; Expected: " . $expected);
       }
 
-      /*
-      ** if you use addColumn() either
-      ** 1) you do not use any dataSource
-      ** 2) you set the dataSource prior to call this method (otherwise it won't be correctly shown)
-      */
       function addColumn($captionName){
 
         if(isset($this->columnCaptions)){

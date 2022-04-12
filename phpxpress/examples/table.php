@@ -35,10 +35,11 @@
             $employees = array($employee1,$employee2,$employee3);
 
             $table = new Table;
-            $table->setDataSource($employees);
-            $table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number"));
-
             $table->addColumn("Extra");
+            $table->setDataSource($employees);
+            $table->setCustomCaptions(array("Extra" , "Name", "Surname", "Date of Birth", "Social Security Number"));
+            $table->addColumn("Extra2");
+            
 
             $table->onValueDisplaying("onValueDisplaying");
 
