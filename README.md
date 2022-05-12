@@ -35,16 +35,19 @@ $table->draw();
 
 function onValueDisplaying($caption, &$value, $row){
 	if($caption == "ssn"){
-		if($row["ssn"] != "12345"){
+		if($row["ssn"] != "12345")
+		{
 			$value = "SSN not shown for privacy reasons";
-        }
-        else{
+        	}
+        	else
+		{
 			$value = $row["name"] . " " . $row["surname"] . " agreed to share their ssn (12345)" ;
-        }
-    }
-    else if($caption == "Extra"){
+        	}
+    	}
+    	else if($caption == "Extra")
+	{
 		$value = "This column did not exist in the datasource";
-    }
+    	}
 }
 ```
 
