@@ -5,6 +5,7 @@
       // Structure
       private $dataSource;
       private $columnCaptions;
+      private $invisible_columns;
 
       // Events
       private $onValueDisplayingFunctionName;
@@ -35,9 +36,37 @@
 
         echo "<table class = '$tableClass'>";
 
+        /*
+        **
+        ** management of invisible columns.
+        **
+        ** $this->invisible_columns is an array containing the name
+        ** of the key values of the array/object not to be displayed.
+        **
+        ** $invisible_column_captions is an array holding the column
+        ** captions of the columns to be removed.
+        */
+        if(!empty($this->invisible_columns)){
+          if(is_array($this->dataSource[0])){
+            $array_keys = array_keys($this -> dataSource[0]);
+          }
+          else{
+            $array_keys = array_keys(get_object_vars($this -> dataSource[0]));
+          }
+        
+          $invisible_columns_captions = array();
+          foreach($this->invisible_columns as $invisible_column_name){
+            $column_index = array_search($invisible_column_name, $array_keys);
+            array_push($invisible_columns_captions, $this->columnCaptions[$column_index]);
+          }
+        }
+
         // Print head
         echo '<thead><tr>';
         foreach($this->columnCaptions as $caption){
+          if( isset($invisible_columns_captions) && in_array($caption, $invisible_columns_captions))
+            continue;
+
           echo '<th scope="col">' . $caption . '</th>';
         }
         echo '</tr></thead>';
@@ -47,6 +76,10 @@
         foreach($this->dataSource as $obj){
           echo '<tr>';
           foreach ($obj as $name => $value) {
+
+            if(!empty($this->invisible_columns) && in_array($name, $this->invisible_columns)){
+              continue;
+            }
 
             if(isset( $this -> onValueDisplayingFunctionName)){
               call_user_func_array($this -> onValueDisplayingFunctionName , array($name, &$value, (array)$obj));
@@ -161,6 +194,38 @@
           foreach($this->dataSource as $obj){
             $obj->{$captionName} = null;
           }
+        }
+      }
+
+      /*
+      ** Expected $column_name: the key of the column to remove.
+      **
+      ** Making a column invisible, rather than removing it from the datasource, might
+      ** be useful in those circumstances where a value is needed in the datasource
+      ** or in the onValueDisplaying, without actually removing it.
+      **
+      */
+      function invisible_column($column_name){
+
+        if(is_array($this->dataSource[0])){
+          $array_keys = array_keys($this -> dataSource[0]);
+        }
+        else{
+          $array_keys = array_keys(get_object_vars($this -> dataSource[0]));
+        }
+
+        if(!in_array($column_name, $array_keys)){
+          throw new InvalidArgumentException("The provided column $column_name is not present in the datasource's column keys");
+        }
+
+        if(isset($this->invisible_columns)){
+          if(in_array($column_name, $this->invisible_columns))
+            throw new InvalidArgumentException("The provided column $column_name is already invisible");
+          
+            array_push($this->invisible_columns, $column_name);
+        }
+        else{
+          $this->invisible_columns = array($column_name);
         }
       }
 
