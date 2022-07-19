@@ -1,5 +1,6 @@
 <html>
     <head>
+        <link rel="stylesheet" href="../bootstrap-5.1.3-dist/css/bootstrap.min.css">
         <title>Card example</title>
     </head>
     <body>
