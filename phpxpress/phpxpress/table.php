@@ -1,25 +1,70 @@
 <?php
+
+/**
+ * PhpXpress
+ *
+ * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
+ *
+ * @author    Alessandro Ferro <>
+ * @note      This program is distributed in the hope that it will be useful - WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
     include "include.php";
     class Table{
 
-      // Structure
+      /* === Structure === */
+
+      /**
+       * The datasource to provdide to the table.
+       * Must be an array of arrays or an array of objects.
+       * 
+       * @var array
+       */
       private $dataSource;
+
+      /**
+       * The column captions
+       * 
+       * @var array
+       */
       private $columnCaptions;
+
+      /**
+       * The columns to make invisible.
+       * The column whose name is a key of the array
+       * of the datasource, will not be shown.
+       * 
+       * @var array
+       */
       private $invisible_columns;
 
-      // Events
+      /* === Events === */
       private $onValueDisplayingFunctionName;
 
-      // Layout
+      /* === Layout === */
       private $darkTheme = false;
       private $stripedRows = false;
       private $bordered = false;
       private $hoverAnimation = false;
       private $small = false;
 
-      // other
+      /* === Other === */
+
+      /**
+       * If pedantic_type_check is set to true, check
+       * if the datasource's elements are all arrays
+       * or all objects. A mix of them will lead
+       * to unexpected results
+       */
       private $pedantic_type_check = false;
 
+      /**
+       * Draw the Table.
+       * 
+       * @return void
+       */
       function draw(){
 
         if(!isset($this->dataSource)){
@@ -36,15 +81,16 @@
 
         echo "<table class = '$tableClass'>";
 
-        /*
+        /**
         **
         ** management of invisible columns.
         **
         ** $this->invisible_columns is an array containing the name
-        ** of the key values of the array/object not to be displayed.
+        ** of the key of the array/object not to be displayed.
         **
         ** $invisible_column_captions is an array holding the column
-        ** captions of the columns to be removed.
+        ** captions of the columns to be removed, since the column captions
+        ** might differ from the keys of the array/object [when using setCustomCaptions()].
         */
         if(!empty($this->invisible_columns)){
           if(is_array($this->dataSource[0])){
@@ -64,6 +110,7 @@
         // Print head
         echo '<thead><tr>';
         foreach($this->columnCaptions as $caption){
+          // do not show column head if it's hidden
           if( isset($invisible_columns_captions) && in_array($caption, $invisible_columns_captions))
             continue;
 
@@ -76,16 +123,15 @@
         foreach($this->dataSource as $obj){
           echo '<tr>';
           foreach ($obj as $name => $value) {
-
+            // do not show column value if it's hidden
             if(!empty($this->invisible_columns) && in_array($name, $this->invisible_columns)){
               continue;
             }
-
+            // fire event onValueDisplaying 
             if(isset( $this -> onValueDisplayingFunctionName)){
               call_user_func_array($this -> onValueDisplayingFunctionName , array($name, &$value, (array)$obj));
             }
             echo '<td>' . $value . '</td>';
-
           }
           echo '</tr>';
         }
@@ -93,9 +139,14 @@
 
       }
 
-      /*
-      ** Datasource can be either an array of object(s) or
-      ** an array of array(s).
+      /**
+       * Set the table's datasource.
+       * Datasource can be either an array of object(s) or
+       * an array of array(s).
+       * 
+       * @param array $datasource An array of arrays or an array of objects. 
+       *
+       * @return void
       */
       function setDataSource(Array $dataSource){
         if(empty($dataSource))
@@ -134,9 +185,9 @@
           }
         }
 
-        /*
-        ** If one or more addColumn() were called before setting the datasource,
-        ** we should add those columns in the source.
+        /**
+         * If one or more addColumn() were called before setting the datasource,
+         * we should add those columns in the source.
         */
         if(isset($this -> columnCaptions)){
           foreach($dataSource as &$row){
@@ -165,6 +216,12 @@
         }
       }
 
+      /**
+       * By default, the columns' captions will be the keys of the
+       * array or object provided. 
+       * 
+       * You can override them by setting custom captions.
+       */
       function setCustomCaptions(Array $captions){
 
         if(empty($this->dataSource))
@@ -180,6 +237,12 @@
                                   Provided: ' . $provided . "; Expected: " . $expected);
       }
 
+      /**
+       * Add columns to the table (setting it before or after the datasource
+       * will show the column before or after the datasource)
+       * 
+       * @param string $captionName The name of the new column
+       */
       function addColumn($captionName){
 
         if(isset($this->columnCaptions)){
@@ -197,15 +260,21 @@
         }
       }
 
-      /*
-      ** Expected $column_name: the key of the column to remove.
-      **
-      ** Making a column invisible, rather than removing it from the datasource, might
-      ** be useful in those circumstances where a value is needed in the datasource
-      ** or in the onValueDisplaying, without actually removing it.
-      **
+      /**
+       * Expected $column_name: the column to remove. To be called after the datasource
+       * is set.
+       *
+       * Making a column invisible, rather than removing it from the datasource, might
+       * be useful in those circumstances where a value is needed in the datasource
+       * or in the onValueDisplaying, without actually removing it.
+       * 
+       * @param string $column_name: the column to remove.
+       *
       */
       function invisible_column($column_name){
+
+        if(!isset($this->dataSource))
+          throw new BadFunctionCallException('Unable to call invisible_column() if the datasource is not set');
 
         if(is_array($this->dataSource[0])){
           $array_keys = array_keys($this -> dataSource[0]);
