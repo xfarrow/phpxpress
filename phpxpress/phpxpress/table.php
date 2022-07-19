@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PhpXpress
+ * PhpXpress v1.0
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -191,7 +191,7 @@
         */
         if(isset($this -> columnCaptions)){
           foreach($dataSource as &$row){
-            foreach($this -> columnCaptions as $captionName){
+            foreach(array_reverse($this -> columnCaptions) as $captionName){
               if($is_array_of_arrays){
                 $row = array($captionName => null) + (array)$row; // append the already inserted captions at the beginning
                 //$element->{$captionName} = null; // append the already inserted captions at the end

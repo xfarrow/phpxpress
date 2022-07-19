@@ -1,5 +1,17 @@
 <script type="text/javascript" src="../bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
 <?php
+
+/**
+ * PhpXpress v1.0
+ *
+ * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
+ *
+ * @author    Alessandro Ferro <>
+ * @note      This program is distributed in the hope that it will be useful - WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
     include "include.php";
 
     class Dropdown{
