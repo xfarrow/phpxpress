@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PhpXpress v1.0
+ * PhpXpress v1.0.1
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -59,6 +59,7 @@
        * to unexpected results
        */
       private $pedantic_type_check = false;
+      private $id_table = "Pxpress_MyTable";
 
       /**
        * Draw the Table.
@@ -79,7 +80,7 @@
         if($this->hoverAnimation) $tableClass.= " table-hover";
         if($this->small) $tableClass.= " table-sm";
 
-        echo "<table class = '$tableClass'>";
+        echo "<table id = '$this->id_table' class = '$tableClass'>";
 
         /**
         **
@@ -363,6 +364,10 @@
           return;
         }
         $this->pedantic_type_check = $bool;
+      }
+
+      function set_table_id($id){
+        $this->id_table = $id;
       }
     }
 ?>
