@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PhpXpress v1.0
+ * PhpXpress v1.0.1
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -11,10 +11,12 @@
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-    include "include.php";
+    namespace PhpXpress;
+
+    include "Code.php";
 
     class Card{
-        
+
         // Structure
         private $imageSource;
         private $title;
@@ -183,10 +185,10 @@
 
             if(isset($this->linksArray)){ // links
                foreach($this->linksArray as $caption => $link){
-                   echo '<a href="' . $link . '" class="card-link">'. $caption .'</a>';  
+                   echo '<a href="' . $link . '" class="card-link">'. $caption .'</a>';
                 }
             echo '<br/><br/>';
-            }   
+            }
 
             if(isset($this->button))
                 echo '<a href="' . $this->button["link"] . '" class="btn btn-primary">' . $this->button["text"] . '</a>';
@@ -221,11 +223,10 @@
         */
         static function beginCardGroupLayout($width=36){
             echo '<div class="card-group" style="width:' . $width. 'rem;">';
-        } 
+        }
 
         static function endCardGroupLayout(){
             echo '</div>';
         }
-
     }
 ?>

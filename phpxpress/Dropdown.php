@@ -1,8 +1,7 @@
-<script type="text/javascript" src="../bootstrap-5.1.3-dist/js/bootstrap.bundle.js"></script>
 <?php
 
 /**
- * PhpXpress v1.0
+ * PhpXpress v1.0.1
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -12,7 +11,9 @@
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-    include "include.php";
+    namespace PhpXpress;
+
+    include "Code.php";
 
     class Dropdown{
 
@@ -38,7 +39,7 @@
         public function setSize($size){
             if($size == "default")
                 $this->size = NULL;
-            
+
             else if($size == "large")
                 $this->size = "btn-lg";
 
@@ -77,11 +78,11 @@
             }
 
             echo '<ul class="' . $ulClass . '" aria-labelledby="dropdownMenuButton1">';
-              
+
             foreach($this->datasource as $name => $link){
                 echo '<li><a class="dropdown-item" href="' . $link . '">' . $name . '</a></li>';
             }
-            
+
             echo '</ul></div>';
         }
     }

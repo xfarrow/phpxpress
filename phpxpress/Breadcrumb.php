@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PhpXpress v1.0
+ * PhpXpress v1.0.1
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -11,7 +11,7 @@
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-    include "include.php";
+    namespace PhpXpress;
 
     class BreadCrumb{
 
@@ -33,7 +33,7 @@
         function setDataSource($dataSource){
             if(!is_array($dataSource))
                 throw new InvalidArgumentException('Parameter dataSource must be an array.');
-            
+
             foreach($dataSource as $caption => $link){
                 $this->addElement($caption, $link);
             }
@@ -43,10 +43,10 @@
         ** Adds an element at the end of the Breadcrumb
         */
         function addElement($caption, $link){
-            
+
             if(isset($this->locations))
                 $this->locations[$caption] = $link;
-            
+
             else
                 $this->locations = array($caption => $link);
 
@@ -58,7 +58,7 @@
         ** or a string (the caption to be activated)
         */
         function setActiveLocation($activeLocation){
-            
+
             if(!is_scalar($activeLocation) && !is_string($activeLocation))
                 throw new InvalidArgumentException('Parameter activeLocation can be either an int or a string. None of these provided.');
 
@@ -79,13 +79,13 @@
                 echo '<nav style="--bs-breadcrumb-divider: \'' . $this->divider . '\';" aria-label="breadcrumb">';
 
             echo '<ol class="breadcrumb">';
-            
+
             foreach($this->locations as $caption => $link){
-                
+
                 // active location
-                if( 
+                if(
                     (is_int($this->activeLocation) && $this->activeLocation == $iterator)
-                ||  (is_string($this->activeLocation) && $this->activeLocation == $caption) 
+                ||  (is_string($this->activeLocation) && $this->activeLocation == $caption)
                   ){
                       echo '<li class="breadcrumb-item active" aria-current="page">' . $caption . '</li>';
                   }

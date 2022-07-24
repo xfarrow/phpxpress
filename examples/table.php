@@ -5,7 +5,7 @@
     </head>
     <body>
         <?php
-            include "../phpxpress/table.php";
+            include "../phpxpress/Table.php";
 
             class Employee{
                 public $name;
@@ -27,7 +27,7 @@
             $employee2->surname = 'Johnstone';
             $employee2->dateOfBirth = "02-04-1988";
             $employee2->ssn = "56789";
-            
+
             $employee3->name = 'Anna';
             $employee3->surname = 'Brenson';
             $employee3->dateOfBirth = "10-08-1998";
@@ -35,12 +35,12 @@
 
             $employees = array($employee1,$employee2,$employee3);
 
-            $table = new Table;
+            $table = new PhpXpress\Table;
             $table->addColumn("Extra");
             $table->setDataSource($employees);
             $table->setCustomCaptions(array("Extra" , "Name", "Surname", "Date of Birth", "Social Security Number"));
             $table->addColumn("Extra2");
-            
+
 
             $table->onValueDisplaying("onValueDisplaying");
 

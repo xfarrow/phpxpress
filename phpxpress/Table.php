@@ -10,8 +10,8 @@
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
-
-    include "include.php";
+    namespace PhpXpress;
+     
     class Table{
 
       /* === Structure === */
@@ -19,14 +19,14 @@
       /**
        * The datasource to provdide to the table.
        * Must be an array of arrays or an array of objects.
-       * 
+       *
        * @var array
        */
       private $dataSource;
 
       /**
        * The column captions
-       * 
+       *
        * @var array
        */
       private $columnCaptions;
@@ -35,7 +35,7 @@
        * The columns to make invisible.
        * The column whose name is a key of the array
        * of the datasource, will not be shown.
-       * 
+       *
        * @var array
        */
       private $invisible_columns;
@@ -63,7 +63,7 @@
 
       /**
        * Draw the Table.
-       * 
+       *
        * @return void
        */
       function draw(){
@@ -100,7 +100,7 @@
           else{
             $array_keys = array_keys(get_object_vars($this -> dataSource[0]));
           }
-        
+
           $invisible_columns_captions = array();
           foreach($this->invisible_columns as $invisible_column_name){
             $column_index = array_search($invisible_column_name, $array_keys);
@@ -128,7 +128,7 @@
             if(!empty($this->invisible_columns) && in_array($name, $this->invisible_columns)){
               continue;
             }
-            // fire event onValueDisplaying 
+            // fire event onValueDisplaying
             if(isset( $this -> onValueDisplayingFunctionName)){
               call_user_func_array($this -> onValueDisplayingFunctionName , array($name, &$value, (array)$obj));
             }
@@ -144,8 +144,8 @@
        * Set the table's datasource.
        * Datasource can be either an array of object(s) or
        * an array of array(s).
-       * 
-       * @param array $datasource An array of arrays or an array of objects. 
+       *
+       * @param array $datasource An array of arrays or an array of objects.
        *
        * @return void
       */
@@ -219,8 +219,8 @@
 
       /**
        * By default, the columns' captions will be the keys of the
-       * array or object provided. 
-       * 
+       * array or object provided.
+       *
        * You can override them by setting custom captions.
        */
       function setCustomCaptions(Array $captions){
@@ -241,7 +241,7 @@
       /**
        * Add columns to the table (setting it before or after the datasource
        * will show the column before or after the datasource)
-       * 
+       *
        * @param string $captionName The name of the new column
        */
       function addColumn($captionName){
@@ -268,7 +268,7 @@
        * Making a column invisible, rather than removing it from the datasource, might
        * be useful in those circumstances where a value is needed in the datasource
        * or in the onValueDisplaying, without actually removing it.
-       * 
+       *
        * @param string $column_name: the column to remove.
        *
       */
@@ -291,7 +291,7 @@
         if(isset($this->invisible_columns)){
           if(in_array($column_name, $this->invisible_columns))
             throw new InvalidArgumentException("The provided column $column_name is already invisible");
-          
+
             array_push($this->invisible_columns, $column_name);
         }
         else{

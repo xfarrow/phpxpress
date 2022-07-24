@@ -5,13 +5,13 @@
     </head>
     <body>
         <?php
-            include "../phpxpress/card.php";
+            include "../phpxpress/Card.php";
 
-            Card::beginCardGroupLayout(36);
+            PhpXpress\Card::beginCardGroupLayout(36);
 
             // Rome
 
-            $card1 = new Card;
+            $card1 = new PhpXpress\Card;
             $card1->setImageSource("./images/colosseum.jpg");
             $card1->setTitle("Rome");
             $card1->setSubTitle("Capital of Italy");
@@ -39,7 +39,7 @@
             $paris->Inhabitants = "2.229.095";
             $paris->Zip = "750XX";
 
-            $card2 = new Card;
+            $card2 = new PhpXpress\Card;
             $card2->setImageSource("./images/paris.jpg");
             $card2->setTitle("Paris");
             $card2->setSubTitle("Capital of France");
@@ -55,7 +55,7 @@
 
             $card2->draw();
 
-            Card::endCardGroupLayout();
+            PhpXpress\Card::endCardGroupLayout();
 
             function onFieldDisplaying(&$field , &$value){
                 if($field == "Inhabitants"){
