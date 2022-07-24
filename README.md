@@ -3,6 +3,9 @@
 PhpXpress' goal is to create a simple way to programmatically manage Bootstrap elements. 
 It's similar to Microsoft's WebForms with a great layout by default (like DevExpress).
 
+
+<noscript><a href="https://liberapay.com/xfarrow/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
+
 ## Available components
 * Table
 * Card
