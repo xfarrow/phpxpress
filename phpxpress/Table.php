@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PhpXpress v1.0.1
+ * PhpXpress v1.0.2
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -11,7 +11,7 @@
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
     namespace PhpXpress;
-     
+
     class Table{
 
       /* === Structure === */
@@ -150,8 +150,10 @@
        * @return void
       */
       function setDataSource(Array $dataSource){
-        if(empty($dataSource))
-          throw new InvalidArgumentException('Parameter cannot be empty.');
+        if(empty($dataSource)){
+          $this->dataSource = [];
+          return;
+        }
 
         if(isset($this-> dataSource))
           throw new BadFunctionCallException("Cannot add datasource to a Table already having a datasource");
