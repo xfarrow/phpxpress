@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PhpXpress v1.0.2
+ * PhpXpress v1.0.3
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -150,14 +150,13 @@
        * @return void
       */
       function setDataSource(Array $dataSource){
+        if(isset($this-> dataSource))
+          throw new BadFunctionCallException("Cannot add datasource to a Table already having a datasource");
+
         if(empty($dataSource)){
           $this->dataSource = [];
           return;
         }
-
-        if(isset($this-> dataSource))
-          throw new BadFunctionCallException("Cannot add datasource to a Table already having a datasource");
-
 
         $is_array_of_arrays; // if false, the datasource is an array of object(s)
         if(is_object($dataSource[0])){
