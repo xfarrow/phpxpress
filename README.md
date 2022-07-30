@@ -1,6 +1,6 @@
 # phpxpress
 
-PhpXpress' goal is to create a simple way to programmatically manage Bootstrap elements. 
+PhpXpress' goal is to create a simple way to programmatically manage Bootstrap elements.
 It's similar to Microsoft's WebForms with a great layout by default (like DevExpress).
 
 
@@ -21,7 +21,7 @@ The following code
 ```
 $employees = array($employee1, $employee2, $employee3);
 
-$table = new Table;
+$table = new PhpXpress\Table;
 $table->setDataSource($employees);
 
 $table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number")); //not required. If not specified it'll use objects' property names
@@ -132,7 +132,3 @@ The follwing code
 Produces the following output:
 
 <img src="/examples/images/breadcrumb.jpg" alt="Demo">
-
-
-
-

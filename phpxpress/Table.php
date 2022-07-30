@@ -69,7 +69,7 @@
       function draw(){
 
         if(!isset($this->dataSource)){
-          throw new BadFunctionCallException('Error: dataSource not set.');
+          throw new BadFunctionCallException('Error: datasource not set.');
         }
 
         $tableClass = "table";
@@ -227,7 +227,7 @@
       function setCustomCaptions(Array $captions){
 
         if(empty($this->dataSource))
-          throw new BadFunctionCallException('Before setting Custom captions, a datasource must be provided first.');
+          throw new BadFunctionCallException('Before setting Custom captions, a non empty datasource must be provided first.');
 
         $provided = count($captions);
         $expected = count($this->columnCaptions);
@@ -275,8 +275,8 @@
       */
       function invisible_column($column_name){
 
-        if(!isset($this->dataSource))
-          throw new BadFunctionCallException('Unable to call invisible_column() if the datasource is not set');
+        if(!isset($this->dataSource) || empty($this->dataSource))
+          throw new BadFunctionCallException('Unable to call invisible_column() if the datasource is not set or empty.');
 
         if(is_array($this->dataSource[0])){
           $array_keys = array_keys($this -> dataSource[0]);
