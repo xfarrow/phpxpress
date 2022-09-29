@@ -18,13 +18,14 @@ It's similar to Microsoft's WebForms with a great layout by default (like DevExp
 
 The following code
 
-```
+```php
 $employees = array($employee1, $employee2, $employee3);
 
 $table = new PhpXpress\Table;
 $table->setDataSource($employees);
 
-$table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number")); //not required. If not specified it'll use objects' property names
+//not required. If not specified it'll use objects' property names
+$table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number")); 
 
 $table->addColumn("Extra");
 
@@ -38,13 +39,13 @@ $table->draw();
 
 function onValueDisplaying($caption, &$value, $row){
 	if($caption == "ssn"){
-		if($row["ssn"] != "12345")
+		if($row["ssn"] == "12345")
 		{
-			$value = "SSN not shown for privacy reasons";
+		 	$value = $row["name"] . " " . $row["surname"] . " agreed to share their ssn (12345)" ;
         	}
         	else
 		{
-			$value = $row["name"] . " " . $row["surname"] . " agreed to share their ssn (12345)" ;
+			$value = "SSN not shown for privacy reasons";
         	}
     	}
     	else if($caption == "Extra")
@@ -63,26 +64,19 @@ produces the following output
 
 The follwing code
 
-```
+```php
 Card::beginCardGroupLayout(36);
 
 $card1 = new Card;
-
 $card1->setImageSource("colosseum.jpg");
-
 $card1->setTitle("Rome");
 $card1->setSubTitle("Capital of Italy");
-
 $card1->setInnerText("After the foundation by Romulus according to a legend, Rome was ruled for a period of 244 years by a monarchical system, initially with sovereigns of Latin and Sabine origin, later by Etruscan kings.");
-
 $card1->setFooterText("Image By John");
-
 $card1->addField("Mayor", "Roberto Gualtieri");
 $card1->addField("Inhabitants", "2.763.804");
 $card1->AddField("Zip", "001XX");
-
 $card1->setButton("More info", "https://en.wikipedia.org/wiki/Rome");
-
 $card1->draw();
 
 class City{
@@ -118,7 +112,7 @@ $card2 receives a DataSource whereas $card1 does not.
 
 The follwing code
 
-```
+```php
             $links["Github"] = "https://www.github.com";
             $links["xfarrow"] = "https://www.github.com/xfarrow";
             $links["PhpXpress"] = "https://www.github.com/xfarrow/phoxpress";
