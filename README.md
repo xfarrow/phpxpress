@@ -23,18 +23,12 @@ $employees = array($employee1, $employee2, $employee3);
 
 $table = new PhpXpress\Table;
 $table->setDataSource($employees);
-
-//not required. If not specified it'll use objects' property names
-$table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number")); 
-
+$table->setCustomCaptions(array("Name", "Surname", "Date of Birth", "Social Security Number")); //not required. If not specified it'll use objects' property names
 $table->addColumn("Extra");
-
 $table->onValueDisplaying("onValueDisplaying");
-
 $table->setStripedRows(true);
 $table->setBordered(true);
 $table->setHoverAnimation(true);
-
 $table->draw();
 
 function onValueDisplaying($caption, &$value, $row){
