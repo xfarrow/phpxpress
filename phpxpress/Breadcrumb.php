@@ -1,7 +1,6 @@
 <?php
 
-/**
- * PhpXpress v1.0.1
+/*
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -32,7 +31,7 @@
         */
         function setDataSource($dataSource){
             if(!is_array($dataSource))
-                throw new InvalidArgumentException('Parameter dataSource must be an array.');
+                throw new \InvalidArgumentException('Parameter dataSource must be an array.');
 
             foreach($dataSource as $caption => $link){
                 $this->addElement($caption, $link);
@@ -60,7 +59,7 @@
         function setActiveLocation($activeLocation){
 
             if(!is_scalar($activeLocation) && !is_string($activeLocation))
-                throw new InvalidArgumentException('Parameter activeLocation can be either an int or a string. None of these provided.');
+                throw new \InvalidArgumentException('Parameter activeLocation can be either an int or a string. None of these provided.');
 
             $this->activeLocation = $activeLocation;
         }

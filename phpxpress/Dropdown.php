@@ -1,7 +1,6 @@
 <?php
 
 /**
- * PhpXpress v1.0.1
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -47,12 +46,12 @@
                 $this->size = "btn-sm";
 
             else
-                throw new InvalidArgumentException('Parameter size must be either default, large or small.');
+                throw new \InvalidArgumentException('Parameter size must be either default, large or small.');
         }
 
         public function setDarkTheme($bool){
             if(!is_bool($bool))
-                throw new InvalidArgumentException('Parameter must be a bool.');
+                throw new \InvalidArgumentException('Parameter must be a bool.');
 
             $this->darkTheme = $bool;
 

@@ -1,37 +1,34 @@
 <?php
 
+    namespace PhpXpress;
+
     class Code{
 
-        public static function doublequote($string){
-            return '"' . $string . '"';
-        }
+        private static $colors_array = array( "blue" => "primary",
+                                        "gray" => "secondary",
+                                        "green" => "success",
+                                        "red" => "danger",
+                                        "yellow" => "warning",
+                                        "cyan" => "info",
+                                        "white" => "light",
+                                        "black" => "dark");
 
         public static function bootstrapColors($color){
-            if($color == 'blue')
-                return 'primary';
 
-            if($color == 'gray')
-                return 'secondary';
+            if(array_key_exists($color, self::$colors_array)){
+                return self::$colors_array[$color];
+            }
 
-            if($color == 'green')
-                return 'success';
+            if(in_array($color, self::$colors_array)){
+                return $color;
+            }
 
-            if($color == 'red')
-                return 'danger';
-            
-            if($color == 'yellow')
-                return 'warning';
-
-            if($color == 'cyan')
-                return 'info';
-        
-            if($color == 'white')
-                return 'light';
-            
-            if($color == 'black')
-                return 'dark';
-
-            throw new InvalidArgumentException('Color not valid. Available colors: blue, gray, green, red, yellow, cyan, white, black');
+            throw new \InvalidArgumentException("Color $color is not valid. Available colors: blue, gray, green, red, yellow, cyan, white, black");
         }
+
+        public static function phpxpress_version(){
+            return "1.0.4";
+        }
+
     }
 ?>

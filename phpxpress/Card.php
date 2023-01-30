@@ -1,7 +1,6 @@
 <?php
 
 /**
- * PhpXpress v1.0.1
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -57,7 +56,7 @@
 
         function setImageSource($imageSource){
             if(!is_string($imageSource))
-                throw new InvalidArgumentException('Parameter imageSource must be a string.');
+                throw new \InvalidArgumentException('Parameter imageSource must be a string.');
 
             $this->imageSource = $imageSource;
         }
@@ -211,7 +210,7 @@
         */
         function onFieldDisplaying($functionName){
             if(!is_callable($functionName))
-                throw new InvalidArgumentException("Couldn't call $functionName. You must provide the name of a function.");
+                throw new \InvalidArgumentException("Couldn't call $functionName. You must provide the name of a function.");
 
             $this -> onFieldDisplayingFunctionName = $functionName;
         }

@@ -1,7 +1,6 @@
 <?php
 
 /**
- * PhpXpress v1.0.3
  *
  * @see https://github.com/xfarrow/phpxpress The PhpXpress GitHub project
  *
@@ -69,7 +68,7 @@
       function draw(){
 
         if(!isset($this->dataSource)){
-          throw new BadFunctionCallException('Error: datasource not set.');
+          throw new \BadFunctionCallException('Error: datasource not set.');
         }
 
         $tableClass = "table";
@@ -151,7 +150,7 @@
       */
       function setDataSource(Array $dataSource){
         if(isset($this-> dataSource))
-          throw new BadFunctionCallException("Cannot add datasource to a Table already having a datasource");
+          throw new \BadFunctionCallException("Cannot add datasource to a Table already having a datasource");
 
         if(empty($dataSource)){
           $this->dataSource = [];
@@ -166,7 +165,7 @@
           $is_array_of_arrays = true;
         }
         else{
-          throw new InvalidArgumentException('Parameter "datasource" must be an' .
+          throw new \InvalidArgumentException('Parameter "datasource" must be an' .
                                             'array of array(s) or array of object(s)');
         }
 
@@ -179,10 +178,10 @@
               return $is_array_of_arrays;
             }
             else
-              throw new InvalidArgumentException('Parameter "datasource" must be an' .
+              throw new \InvalidArgumentException('Parameter "datasource" must be an' .
                                               'array of array(s) or array of object(s)');
           })) > 0){
-            throw new InvalidArgumentException('Parameter "datasource" must be an' .
+            throw new \InvalidArgumentException('Parameter "datasource" must be an' .
                                             'array of array(s) or array of object(s)');
           }
         }
@@ -227,7 +226,7 @@
       function setCustomCaptions(Array $captions){
 
         if(empty($this->dataSource))
-          throw new BadFunctionCallException('Before setting Custom captions, a non empty datasource must be provided first.');
+          throw new \BadFunctionCallException('Before setting Custom captions, a non empty datasource must be provided first.');
 
         $provided = count($captions);
         $expected = count($this->columnCaptions);
@@ -235,7 +234,7 @@
         if($provided == $expected)
           $this -> columnCaptions = $captions;
         else
-        throw new LengthException('Number of provided captions not matching the datasource ones.
+        throw new \LengthException('Number of provided captions not matching the datasource ones.
                                   Provided: ' . $provided . "; Expected: " . $expected);
       }
 
@@ -276,7 +275,7 @@
       function invisible_column($column_name){
 
         if(!isset($this->dataSource) || empty($this->dataSource))
-          throw new BadFunctionCallException('Unable to call invisible_column() if the datasource is not set or empty.');
+          throw new \BadFunctionCallException('Unable to call invisible_column() if the datasource is not set or empty.');
 
         if(is_array($this->dataSource[0])){
           $array_keys = array_keys($this -> dataSource[0]);
@@ -286,12 +285,12 @@
         }
 
         if(!in_array($column_name, $array_keys)){
-          throw new InvalidArgumentException("The provided column $column_name is not present in the datasource's column keys");
+          throw new \InvalidArgumentException("The provided column $column_name is not present in the datasource's column keys");
         }
 
         if(isset($this->invisible_columns)){
           if(in_array($column_name, $this->invisible_columns))
-            throw new InvalidArgumentException("The provided column $column_name is already invisible");
+            throw new \InvalidArgumentException("The provided column $column_name is already invisible");
 
             array_push($this->invisible_columns, $column_name);
         }
@@ -315,42 +314,42 @@
       */
       function onValueDisplaying($functionName){
         if(!is_callable($functionName))
-          throw new InvalidArgumentException("Couldn't call $functionName. You must provide the name of a function.");
+          throw new \InvalidArgumentException("Couldn't call $functionName. You must provide the name of a function.");
 
         $this -> onValueDisplayingFunctionName = $functionName;
       }
 
       function setDarkTheme($bool){
         if(!is_bool($bool)){
-          throw new InvalidArgumentException('Parameter must be a boolean.');
+          throw new \InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->darkTheme = $bool;
       }
 
       function setStripedRows($bool){
         if(!is_bool($bool)){
-          throw new InvalidArgumentException('Parameter must be a boolean.');
+          throw new \InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->stripedRows = $bool;
       }
 
       function setBordered($bool){
         if(!is_bool($bool)){
-          throw new InvalidArgumentException('Parameter must be a boolean.');
+          throw new \InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->bordered = $bool;
       }
 
       function setHoverAnimation($bool){
         if(!is_bool($bool)){
-          throw new InvalidArgumentException('Parameter must be a boolean.');
+          throw new \InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->hoverAnimation = $bool;
       }
 
       function setSmall($bool){
         if(!is_bool($bool)){
-          throw new InvalidArgumentException('Parameter must be a boolean.');
+          throw new \InvalidArgumentException('Parameter must be a boolean.');
         }
         $this->small = $bool;
       }
@@ -358,7 +357,7 @@
       // to be used before setting the datasource
       function setPedanticTypeCheck($bool){
         if(!is_bool($bool)){
-          throw new InvalidArgumentException('Parameter must be a boolean.');
+          throw new \InvalidArgumentException('Parameter must be a boolean.');
         }
         if(isset($this->datasource)){
           echo "<b>Warning</b>Use of pedantic type check after datasource is set. Instruction ignored.";
